@@ -8,20 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-	<form method="post" action="/board/doLogin">
-	아이디<br/>
+<form method="post" action="/board/doLogin">
+	<br/>
 	<input type="text" name="userId" placeholder = "ID를 입력하세요"/>
-	비밀번호<br/>
-	<input type="password" name= "userPassword" placeholder="비밀번호를 입력하세요" />
+	<br/>
+	<input type="password" name= "userPassword" placeholder="비밀번호를 입력하세요" /><br/>
 	<input type="submit" value="SignIn"/>
-	
-	
-	</form>
-
-
-
+</form>
 </body>
 </html>

@@ -21,7 +21,6 @@ public class characterEncodingFilter implements Filter {
 	response.setCharacterEncoding("UTF-8");
 	// 모든 URL에 UTF-8이 적용된다.
 	
-	
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response); //servlet을 요청하기 / 응답하기   (중계하는)

@@ -1,5 +1,6 @@
 package com.ktds.dojun.board.board.web;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import com.ktds.dojun.board.board.biz.BoardBiz;
 import com.ktds.dojun.board.board.biz.BoardBizImpl;
 import com.ktds.dojun.board.board.vo.BoardVO;
 import com.ktds.dojun.board.user.vo.UsersVO;
+import com.ktds.dojun.common.web.MultipartHttpServletRequest;
+import com.ktds.dojun.common.web.MultipartHttpServletRequest.MultipartFile;
 
 public class DoWriteActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,15 +36,25 @@ public class DoWriteActionServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		BoardVO boardVO = new BoardVO();
+		MultipartHttpServletRequest multipart = new MultipartHttpServletRequest(request);
 
 		HttpSession session = request.getSession();
 		UsersVO user = (UsersVO) session.getAttribute("_USER_");
-		
-		//로그인하고 있는 사용자의, VO정보를 session에서 가져온다.
-		
 
-		String subject = request.getParameter("subject");
-		String content = request.getParameter("content");
+		// 로그인하고 있는 사용자의, VO정보를 session에서 가져온다.
+
+		String subject = multipart.getParameter("subject");
+		String content = multipart.getParameter("content");
+		MultipartFile img = multipart.getFile("img");
+		String postFileName = "";
+		String downloadUrl = "";
+
+		if (content.isEmpty()) {
+
+			content = " ";
+
+		}
+
 		String ip = request.getRemoteAddr();
 
 		System.out.println(subject);
@@ -55,16 +68,26 @@ public class DoWriteActionServlet extends HttpServlet {
 		boardVO.setContent(content);
 		boardVO.setIp(ip);
 
-		if (boardBiz.writeArticle(boardVO)) {
-			// list 페이지로
+		if (img != null && img.getFileSize() > 0) {
 
-			response.sendRedirect("/board/list");
+			postFileName = img.getFileName();
+			downloadUrl = img.getFileName();
 
+			String path = "C:\\Users\\Admin\\workspaceWeb\\melon\\src\\main\\webapp\\mp3\\";
+
+			path += boardVO.getUser().getUserId();
+			File dir = new File(path);
+
+			dir.mkdirs();
+
+			img.write(path + File.separator + img.getFileName());
+			
 		}
 
-		else {
-			// write 페이지로
-			response.sendRedirect("/board/write");
+		if (boardBiz.updateOneArticle(boardVO)) {
+			response.sendRedirect("/melon/album/list");
+		} else {
+			response.sendRedirect("/melon/album/write");
 		}
 
 	}

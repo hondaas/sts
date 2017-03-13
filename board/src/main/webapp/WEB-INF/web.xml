@@ -128,25 +128,11 @@
     <servlet-name>DoLoginActionServlet</servlet-name>
     <url-pattern>/doLogin</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>IndexServlet</display-name>
-    <servlet-name>IndexServlet</servlet-name>
-    <servlet-class>com.ktds.dojun.board.IndexServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>IndexServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
   <filter>
     <display-name>redirectionFilter</display-name>
     <filter-name>redirectionFilter</filter-name>
     <filter-class>com.ktds.dojun.common.web.redirectionFilter</filter-class>
   </filter>
-  <filter-mapping>
-    <filter-name>redirectionFilter</filter-name>
-    <url-pattern>/list</url-pattern>
-  </filter-mapping>
   <filter-mapping>
     <filter-name>redirectionFilter</filter-name>
     <url-pattern>/write</url-pattern>
@@ -167,4 +153,14 @@
     <filter-name>redirectionFilter</filter-name>
     <url-pattern>/doWrite</url-pattern>
   </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DoLogoutServlet</display-name>
+    <servlet-name>DoLogoutServlet</servlet-name>
+    <servlet-class>com.ktds.dojun.board.user.web.DoLogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoLogoutServlet</servlet-name>
+    <url-pattern>/doLogout</url-pattern>
+  </servlet-mapping>
 </web-app>

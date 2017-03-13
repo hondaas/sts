@@ -2,19 +2,21 @@ package com.ktds.dojun.board.board.dao;
 
 import java.util.List;
 
+import com.ktds.dojun.board.board.vo.BoardSearchVO;
 import com.ktds.dojun.board.board.vo.BoardVO;
 
 public interface BoardDao {
 
-public int insertArticle(BoardVO boardVO) ;
+	public int getAllArticlesCount(BoardSearchVO boardSearchVO);
 
-public List<BoardVO> selectAllArticle();
+	public int insertArticle(BoardVO boardVO);
 
-public BoardVO selectOneArticle(int articleNum);
+	public List<BoardVO> selectAllArticle(BoardSearchVO searchVO);
 
-public int deleteOneArticle(int articleNum);
+	public BoardVO selectOneArticle(int articleNum);
 
-public int updateOneArticle(BoardVO boardVO);
+	public int deleteOneArticle(int articleNum);
+
+	public int updateOneArticle(BoardVO boardVO);
 
 }
-

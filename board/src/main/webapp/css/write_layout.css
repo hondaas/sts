@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.write {
+	display: inline-block;
+	margin-right: 3px;
+	width: 709px;
+	border: 1px solid #DDDDDD;
+}
+
+.write>hr {
+	border: 1px dotted #DDDDDD
+}
+
+.write>h1 {
+	text-align: center;
+}
+
+.write>.insert>form>.boxes {
+	text-align: center;
+}
+
+.write>.insert>form>.boxes>textarea {
+	width: 573px;
+	height: 316px;
+	resize: none;
+	padding: 7px;
+	margin : 3px;
+	
+}
+
+.write>.insert>form>.boxes>input {
+	width: 573px;
+	padding: 7px;
+	margin : 3px;
+}
+
+.write>.insert>form>.dowrite {	
+	text-align : right;
+	margin-right : 60px;
+	
+}

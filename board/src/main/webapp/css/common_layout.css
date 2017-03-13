@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+th {
+	color: blue;
+	text-align: center;
+	font-weight: bold;
+	background-color: powderblue;
+	padding: 6px;
+	font-size: 9pt;
+}
+
+body {
+	margin: 0px;
+}
+
+#wrapper {
+	width: 964px;
+	overflow: hidden; /*픽셀을 넘어가면 보여주지 않고 잘라버린다.*/
+	margin: 0 auto; /* 위 아래는 0으로, 좌 우는 반반씩 잘라준다.*/
+}
+
+#content {
+	width: 100%; /*content는 wrapper를 꽉 채운다(content의 상위 div) */
+}
+
+#nav {
+	width: 100%;
+	background-color : #55CC55 ;
+	padding: 10px; /*사방으로 10px씩 페딩*/
+	padding-left: 15px; /*위의 페딩값을 덮어쓰므로, 결국 왼쪽 15px이 된다.*/
+	margin-bottom : 3px;
+	font-size: 9pt;
+}
+#nav > a{
+	color: #FFFF00;
+	font-weight: bold;
+	font-size: 11pt;
+}
+
+table { width : 100%;
+	border-collapse: collapse;
+}
+/*테이블 경계선 제거*/
+td {
+	padding: 6px;
+	font-size: 9pt;
+}
+
+* {
+	color: #333333;
+}
+
+div, input, td, th, span, a, p, textarea, li, button, dt, dl, dd, ul, ol, body {
+	font-size : 9pt;
+	
+}
+

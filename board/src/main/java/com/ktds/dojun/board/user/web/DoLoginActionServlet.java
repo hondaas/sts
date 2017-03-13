@@ -2,6 +2,7 @@ package com.ktds.dojun.board.user.web;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,8 @@ public class DoLoginActionServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		
 		String userId = request.getParameter("userId");
 		String userPassword = request.getParameter("userPassword");
 		
@@ -43,6 +46,8 @@ public class DoLoginActionServlet extends HttpServlet {
 		UsersVO usersVO = userBiz.loginUser(user);
 		
 		if(usersVO==null){
+		//	RequestDispatcher dispatcher = request.getRequestDispatcher("/board/login");
+	//		dispatcher.forward(request, response); ???
 			
 			response.sendRedirect("/board/login");
 			

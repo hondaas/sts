@@ -1,21 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 
+
+<jsp:include page="/template/common_header.jsp"/>
+<div class="modify">
 	<h1>글수정</h1>
 	<hr>
 	<hr />
-
-
-
 	<form method="post" action ="/board/doModify">
-	
+	<div class="insert">
 	<input type = "hidden"name= "boardId" value="${board.boardId}">
 	
 	<!-- 사용자에게는 보이지 않는 값 -->
@@ -26,10 +19,7 @@
 		
 		<textarea name="content" placeholder="내용을 입력하세요." >${board.content}</textarea>
 		<!-- textarea에는 value를 사용하지 않는다. -->
-		
-		
-		
-		
+
 		<!-- textarea는 띄어쓰기하면 text로 인식하므로 닫기를 바로 붙여준다. -->
 		
 		<!-- writer, subject, content 라는 이름으로 데이터가 전달된다. 이들은 parameter이다. -->
@@ -44,12 +34,9 @@
 		<!-- form 쓰면 무조건 Post -->
 		<!-- Post Get은 복합하여 사용가능 -->
 		
-		
-		<input type="submit" value="수정" />
+		<div class = "button">
+		<input type="submit" value="수정" /></div>
+		</div>
 	</form>
-
-
-
-
-</body>
-</html>
+</div>
+<jsp:include page="/template/common_footer.jsp"/>

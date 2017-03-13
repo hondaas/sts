@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+.detail {
+	width: 709px;
+	margin-right: 3px;
+	display: inline-block;
+	/*div는 line block이므로, inline block화 시켜야만 옆으로 붙일 수 있다.*/
+	border: 1px solid #DDDDDD;
+}
+
+.detail>h1 {
+	text-align: center;
+}
+
+.detail>hr {
+	border: 1px dashed #DDD;
+	width: 589px;
+}
+
+.detail > .author, .detail > p, .detail > .control {
+	margin : 0 auto;
+	width: 579px;
+	padding-left: 10px;
+}
+
+.detail > p {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+	background-color: #F4F4F4;
+}
+
+.detail > .control {
+	padding-bottom: 10px;
+
+

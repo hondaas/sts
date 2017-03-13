@@ -16,6 +16,13 @@ public class ViewLoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
+		
+		
+		
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view/users/login.jsp");
 		dispatcher.forward(request, response);
 

@@ -6,10 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ktds.dojun.board.board.biz.BoardBiz;
 import com.ktds.dojun.board.board.biz.BoardBizImpl;
 import com.ktds.dojun.board.board.vo.BoardVO;
+import com.ktds.dojun.board.user.vo.UsersVO;
 
 public class DoModifyActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +27,9 @@ public class DoModifyActionServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		UsersVO user = (UsersVO) session.getAttribute("_USER_");
 		
 		String subject =request.getParameter("subject");
 		String content =request.getParameter("content");
@@ -50,6 +55,7 @@ public class DoModifyActionServlet extends HttpServlet {
 		boardVO.setSubject(subject);
 		boardVO.setContent(content);
 		boardVO.setBoardId(boardId);
+		boardVO.setWriter(user.getUserId());
 		
 		if (boardBiz.updateOneArticle(boardVO)){
 			

@@ -8,40 +8,49 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.ktds.dojun.board.board.biz.BoardBiz;
 import com.ktds.dojun.board.board.biz.BoardBizImpl;
+import com.ktds.dojun.board.board.vo.BoardSearchVO;
 import com.ktds.dojun.board.board.vo.BoardVO;
+import com.ktds.dojun.common.web.pager.ClassicPageExplorer;
+import com.ktds.dojun.common.web.pager.PageExplorer;
+import com.ktds.dojun.common.web.pager.Pager;
+import com.ktds.dojun.common.web.pager.PagerFactory;
 
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private BoardBiz boardBiz;
-	
-	
+
 	public ListServlet() {
-		// super();
 		boardBiz = new BoardBizImpl();
-		
-		
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		// session.invalidate();
+		String pageNo = request.getParameter("pageNo");
+		Pager pager = PagerFactory.getPager(Pager.ORACLE);
+		pager.setPageNumber(pageNo);
+
+		BoardSearchVO searchVO = new BoardSearchVO();
+		searchVO.setPager(pager);
+		List<BoardVO> artcleList = boardBiz.getAllArticles(searchVO);
 		
-		List<BoardVO> artcleList = boardBiz.getAllArticles();
-		BoardVO boardVO = new BoardVO();
 		
-		request.setAttribute("articleList", artcleList);
-		System.out.println(boardVO.getUser().getUserName());
 		
+		PageExplorer pageExplorer = new ClassicPageExplorer(pager);
+		String pages = pageExplorer.getPagingList("pageNo", "<@>", "이전", "다음", "searchform");
+
 		
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/board/list.jsp"); ///view/board/list.jsp
+		request.setAttribute("articleList", artcleList);
+		request.setAttribute("count", pager.getTotalArticleCount());
+		request.setAttribute("pager", pages);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/board/list.jsp"); /// view/board/list.jsp
 		dispatcher.forward(request, response);
 
 	}

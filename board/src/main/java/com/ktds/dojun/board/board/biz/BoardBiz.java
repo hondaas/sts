@@ -2,6 +2,7 @@ package com.ktds.dojun.board.board.biz;
 
 import java.util.List;
 
+import com.ktds.dojun.board.board.vo.BoardSearchVO;
 import com.ktds.dojun.board.board.vo.BoardVO;
 
 /**
@@ -11,7 +12,7 @@ public interface BoardBiz {
 
 	public boolean writeArticle(BoardVO boardVO);
 
-	public List<BoardVO> getAllArticles();
+	public List<BoardVO> getAllArticles(BoardSearchVO searchVO);
 
 	public BoardVO getOneArticle(int articleNum);
 

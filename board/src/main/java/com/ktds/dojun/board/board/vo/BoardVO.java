@@ -24,9 +24,38 @@ public class BoardVO {
 	private String ip;
 	@Types
 	private UsersVO user;
+	@Types
+	private int rnum;
+	public String getImg() {
+		return img;
+	}
+
+
+
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	@Types
+	private String img;
 
 	
 	
+	public int getRnum() {
+		return rnum;
+	}
+
+
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+
+
+
 	public UsersVO getUser() {
 		if (user == null) {
 			user = new UsersVO();
