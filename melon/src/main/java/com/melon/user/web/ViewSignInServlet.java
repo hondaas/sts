@@ -24,6 +24,9 @@ public class ViewSignInServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/signIn.jsp");
 		dispatcher.forward(request, response);
 
@@ -49,7 +52,7 @@ public class ViewSignInServlet extends HttpServlet {
 			
 			response.sendRedirect("/melon/user/signIn");
 			
-		}else response.sendRedirect("/melon/user/signIn");
+		}else response.sendRedirect("/melon/artist/list");
 
 	}
 

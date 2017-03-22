@@ -31,15 +31,15 @@ public class MusicServiceImpl implements MusicService {
 	}
 
 	@Override
-	public MusicVO getOneMusic(String musicId, UserVO	userVO) {
-		
+	public MusicVO getOneMusic(String musicId, UserVO userVO) {
+
 		MusicVO music = musicBiz.getOneMusic(musicId);
-		if(music != null){
+		if (music != null) {
 			userBiz.managePoint(userVO.getUserId(), -5);
 			int userPoint = userVO.getUserPoint();
 			userVO.setUserPoint(userPoint - 5);
 		}
-		
+
 		return music;
 	}
 
@@ -50,7 +50,18 @@ public class MusicServiceImpl implements MusicService {
 
 	@Override
 	public boolean addLikeCount(String musicId) {
-		return false;
+		System.out.println("ss");
+		return musicBiz.addLikeCount(musicId);
+	}
+
+	@Override
+	public MusicVO getOneMusicforUpdate(String musicId) {
+		return musicBiz.getOneMusic(musicId);
+	}
+
+	@Override
+	public boolean updateOneMusic(MusicVO musicVO) {
+		return musicBiz.updateOneMusic(musicVO);
 	}
 
 }

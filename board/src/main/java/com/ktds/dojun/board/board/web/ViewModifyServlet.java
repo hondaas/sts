@@ -7,10 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ktds.dojun.board.board.biz.BoardBiz;
 import com.ktds.dojun.board.board.biz.BoardBizImpl;
 import com.ktds.dojun.board.board.vo.BoardVO;
+import com.ktds.dojun.board.user.vo.UsersVO;
 
 /**
  * Servlet implementation class ViewModifyServlet
@@ -34,6 +36,10 @@ public class ViewModifyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		
+		
+		
 		String boardIdString = request.getParameter("boardId");
 		int boardId = 0;
 
@@ -54,8 +60,25 @@ public class ViewModifyServlet extends HttpServlet {
 		
 		request.setAttribute("board", boardVO);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/board/modify.jsp");
-		dispatcher.forward(request, response);
+		
+		
+		HttpSession session = request.getSession();
+		UsersVO userVO = (UsersVO) session.getAttribute("_USER_");
+
+		if (userVO.getUserId().equals(boardVO.getWriter())) {
+
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/view/board/modify.jsp");
+				dispatcher.forward(request, response);
+
+			
+
+		}else{response.sendError(404);}
+		
+		
+		
+		
+		
 
 	}
 

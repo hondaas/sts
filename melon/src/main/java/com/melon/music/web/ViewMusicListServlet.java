@@ -8,13 +8,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.melon.common.constants.AuthConst;
 import com.melon.common.web.pager.ClassicPageExplorer;
 import com.melon.common.web.pager.PageExplorer;
 import com.melon.music.biz.MusicBiz;
 import com.melon.music.biz.MusicBizImpl;
 import com.melon.music.vo.MusicSearchVO;
 import com.melon.music.vo.MusicVO;
+import com.melon.user.vo.UserVO;
 
 public class ViewMusicListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -50,6 +53,13 @@ public class ViewMusicListServlet extends HttpServlet {
 		request.setAttribute("musicCount", musicSearchVO.getPager().getTotalArticleCount());
 		request.setAttribute("pager", pager.getPagingList("pageNo", "[@]", "prev", "next", "searchform"));
 
+		HttpSession session = request.getSession();
+		UserVO userVO = (UserVO) session.getAttribute("_USER_");
+		
+		request.setAttribute("isNormalUser", userVO.getAuthorizationId().equals(AuthConst.NORMAL_USER));
+		request.setAttribute("isOperatorUser", userVO.getAuthorizationId().equals(AuthConst.OPERATOR_USER));
+		request.setAttribute("isAdminUser", userVO.getAuthorizationId().equals(AuthConst.ADMIN_USER));
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/music/list.jsp");
 		dispatcher.forward(request, response);
 	}

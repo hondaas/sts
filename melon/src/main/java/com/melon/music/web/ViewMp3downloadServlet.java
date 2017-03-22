@@ -38,7 +38,7 @@ public class ViewMp3downloadServlet extends HttpServlet {
 		
 		
 		
-		String postPath = "D:\\uploadFiles\\mp3\\";
+		String postPath = "C:\\Users\\Admin\\Documents\\sts\\melon\\src\\main\\webapp\\mp3\\";
 		
 		
 		

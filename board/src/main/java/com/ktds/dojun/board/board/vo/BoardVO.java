@@ -26,12 +26,10 @@ public class BoardVO {
 	private UsersVO user;
 	@Types
 	private int rnum;
+
 	public String getImg() {
 		return img;
 	}
-
-
-
 
 	public void setImg(String img) {
 		this.img = img;
@@ -40,21 +38,13 @@ public class BoardVO {
 	@Types
 	private String img;
 
-	
-	
 	public int getRnum() {
 		return rnum;
 	}
 
-
-
-
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
 	}
-
-
-
 
 	public UsersVO getUser() {
 		if (user == null) {
@@ -64,9 +54,6 @@ public class BoardVO {
 		return user;
 	}
 
-	
-	
-	
 	public void setUser(UsersVO user) {
 		this.user = user;
 	}
@@ -124,7 +111,7 @@ public class BoardVO {
 	}
 
 	public void setIp(String ip) {
-		ip = ip;
+		this.ip = ip;
 	}
 
 }

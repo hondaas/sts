@@ -6,9 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ktds.dojun.board.board.biz.BoardBiz;
 import com.ktds.dojun.board.board.biz.BoardBizImpl;
+import com.ktds.dojun.board.board.vo.BoardVO;
+import com.ktds.dojun.board.user.vo.UsersVO;
 
 public class DoDeleteActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,26 +33,29 @@ public class DoDeleteActionServlet extends HttpServlet {
 
 		String boardIdString = request.getParameter("boardId");
 
-
 		int boardId = 0; // try 밖에서도 써야 하니까 밖에서 선언.
 
-			boardId = Integer.parseInt(boardIdString);
+		boardId = Integer.parseInt(boardIdString);
 
-		if (boardBiz.deleteOneArticle(boardId)){
-	
-			response.sendRedirect("/board/list");
-				
-		}
-		
-		else{
-			
-			response.sendRedirect("/board/list");
-		}
-		
-		
+		HttpSession session = request.getSession();
+		UsersVO userVO = (UsersVO) session.getAttribute("_USER_");
+		BoardVO boardVO = boardBiz.getOneArticle(boardId);
 
-		
+		if (userVO.getUserId().equals(boardVO.getWriter())) {
+
+			if (boardBiz.deleteOneArticle(boardId)) {
+
+				response.sendRedirect("/board/list");
+
+			}
+
+			else {
+
+				response.sendRedirect("/board/list");
+			}
+
+		}else{response.sendError(404);}
+
 	}
-		
-	
-	}
+
+}

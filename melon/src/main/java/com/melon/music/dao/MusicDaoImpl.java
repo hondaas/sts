@@ -454,16 +454,16 @@ public class MusicDaoImpl implements MusicDao {
 		try {
 			conn = DriverManager.getConnection(url, "MELON", "melon");
 
+			
 			StringBuffer query = new StringBuffer();
 
-			query.append("	UPDATE MSC LK_CNT                                                                     ");
-			query.append("	SET MSC_ID = MSC_ID + 1                                                            ");
+			query.append("	UPDATE MSC                                                                      ");
+			query.append("	SET LK_CNT = LK_CNT + 1                                                            ");
 			query.append("	WHERE MSC_ID = ?                                                            ");
 
 			stmt = conn.prepareStatement(query.toString());
 
 			stmt.setString(1, musicId);
-			
 			return stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -489,6 +489,69 @@ public class MusicDaoImpl implements MusicDao {
 		}
 		
 		
+		
+	}
+
+	@Override
+	public int updateOneMusic(MusicVO musicVO) {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+
+		try {
+			conn = DriverManager.getConnection(url, "MELON", "melon");
+
+			
+			StringBuffer query = new StringBuffer();
+
+			query.append("	UPDATE MSC                                                                      ");
+			query.append("	SET		                                                   ");
+			query.append("						 TTL = ?                                                             ");
+			query.append("						, MP3_FL = ?                                                          ");
+			query.append("						, MSCN = ?                                                            ");
+			query.append("						, DRTR = ?                                                            ");
+			query.append("						, LRCS = ?                                                           ");
+			query.append("	WHERE MSC_ID = ?                                                            ");
+
+			stmt = conn.prepareStatement(query.toString());
+
+			stmt.setString(1, musicVO.getTitle());
+			stmt.setString(2, musicVO.getMp3File());
+			stmt.setString(3, musicVO.getMusician());
+			stmt.setString(4, musicVO.getDirector());
+			stmt.setString(5, musicVO.getLyrics());
+			stmt.setString(6, musicVO.getMusicId());
+			
+			return stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage(), e);
+
+		} finally {
+
+			try {
+				if (stmt != null) {
+
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+			try {
+				if (conn != null) {
+
+					conn.close();
+				}
+			} catch (SQLException e) {
+			}
+
+		}
 		
 	}
 

@@ -13,6 +13,8 @@
 <script type="text/javascript">
 	$().ready(function() {
 
+		<c:if test="${isAdminUser || isOperatorUser}">
+		
 		$("input[type=button]").click(function() {
 
 			var writeDiv = $("<div id='writeDiv'></div>");
@@ -34,25 +36,19 @@
 
 			$(this).before(writeDiv);
 
-			writeDiv.mouseleave(function() {
-				var q = true;
-
-				if (q == true) {
-
-				}
-
-			})
-
 			//jsp는 서버사이드 랭귀지, 자바스크립트는 클라이언트 사이드 랭귀지
 
 		});
-
+</c:if>
 	});
 </script>
 </head>
 <body>
-
-	<input type="button" value="아티스트 등록" />
+	<c:choose>
+		<c:when test="${isAdminUser || isOperatorUser}">
+			<input type="button" value="아티스트 등록" />
+		</c:when>
+	</c:choose>
 
 	<p>${artistCount}명의아티스트가검색되었습니다.</p>
 	<table>
@@ -67,10 +63,14 @@
 
 		<c:forEach items="${artistList}" var="artist">
 			<tr>
-				<td><fmt:parseNumber> ${fn:split(artist.artistId, '-')[2]}
+				<td><fmt:parseNumber>
+				${fn:split(artist.artistId,'-')[2]}
 					</fmt:parseNumber></td>
 
-				<td><a href="/melon/album/list?artistId=${artist.artistId}">${artist.member}</a></td>
+				<td class="artistName"><a class="artistName"
+					href="/melon/album/list?artistId=${artist.artistId}">${artist.member}
+				</a></td>
+
 				<td>${artist.debutDate}</td>
 			</tr>
 
@@ -80,6 +80,5 @@
 	<div>
 		<form id="searchform">${pager}</form>
 	</div>
-
 </body>
 </html>

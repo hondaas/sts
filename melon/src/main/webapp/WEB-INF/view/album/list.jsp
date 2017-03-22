@@ -11,53 +11,64 @@
 <script type="text/javascript"
 	src="/melon/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
-	$().ready(
+	$()
+			.ready(
 					function() {
-						$("input[type=button]").click(
+						<c:if test="${isAdminUser || isOperatorUser}">
+						$("input[type=button]")
+								.click(
 										function() {
 
-											window.open("/melon/album/write?artistId=${param.artistId}",
+											window
+													.open(
+															"/melon/album/write?artistId=${param.artistId}",
 															"앨범 등록",
 															"resizable=no, scrollbars=yes, toolbar=no,width=300px , height=500px, menubar=no");
 
 										});
-						
+						</c:if>
 						$(".showimage").css({
-							
+
 							width : '200px',
 							height : '200px'
-							
-						})
+
+						});
 
 					});
 </script>
 
 </head>
 <body>
+	<c:choose>
+		<c:when test="${isAdminUser || isOperatorUser}">
 
-	<input type="button" value="앨범 등록" />
+			<input type="button" value="앨범 등록" />
+		</c:when>
+	</c:choose>
 	<br />
 
 	<table>
 
 		<tr>
 			<c:forEach items="${albumList}" var="album" varStatus="index">
- 			
- 	
- 		<!-- varStatus를 통해 몇번째 반복인지 알 수 있다. -->
-				
+
+
+				<!-- varStatus를 통해 몇번째 반복인지 알 수 있다. -->
+
 				<td>${index.index+1}<br />
 					<div>
-					<a href="/melon/music/list?albumId=${album.albumId}&artistId=${album.artistId}">
-						<img class="showimage" src="/melon/album/post?albumId=${album.albumId}" /></a>  <br /> ${album.albumTitle}<br />
-						${album.artistVO.member}
+						<a
+							href="/melon/music/list?albumId=${album.albumId}&artistId=${album.artistId}">
+							<img class="showimage"
+							src="/melon/album/post?albumId=${album.albumId}" />
+						</a> <br /> ${album.albumTitle}<br /> ${album.artistVO.member}
 					</div>
 				</td>
 
 				<c:if test="${(index.index + 1) % 5 == 0 }">
 		</tr>
 		<tr>
-			</c:if> 
+			</c:if>
 			</c:forEach>
 		</tr>
 

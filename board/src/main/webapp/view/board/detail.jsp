@@ -12,9 +12,6 @@
 <script type="text/javascript">
 	$().ready(function() {
 
-		
-	
-
 		});
 
 	
@@ -28,20 +25,18 @@
 		<span>${board.writer}</span> / <span>${board.writeDate}</span> / <span>${board.likeCount}</span>
 	</div>
 	<br /> 
-	<img class="showimage" src="/melon/img/${board.user.userId}/${board.img}" />
+	<img class="showimage" src="/board/img/${board.user.userId}/${board.img}" />
 	<p>${board.content}</p>
 	<br />
 
 	<hr>
 	<div class="control">
-		<a href="/board/modify?boardId=${board.boardId}">수정</a> | <a
-			href="/board/delete?boardId=${board.boardId}">삭제</a> | <a
+		<c:choose><c:when test="${isWriter}"><a href="/board/modify?boardId=${board.boardId}">수정</a> | <a
+			href="/board/delete?boardId=${board.boardId}">삭제</a> |</c:when></c:choose> <a
 			href="/board/list">목록으로 돌아가기</a> | <a href="/board/write">글쓰기</a>
 	</div>
-</div>
-<!--
--->
-<div class="login">
+</div><!--
+--><div class="login">
 	<c:if test="${ empty sessionScope._USER_}">
 		<jsp:include page="/view/users/login.jsp" />
 	</c:if>

@@ -7,10 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ktds.dojun.board.board.biz.BoardBiz;
 import com.ktds.dojun.board.board.biz.BoardBizImpl;
 import com.ktds.dojun.board.board.vo.BoardVO;
+import com.ktds.dojun.board.user.vo.UsersVO;
 
 public class ViewDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -49,6 +51,19 @@ public class ViewDetailServlet extends HttpServlet {
 		BoardVO board = boardBiz.getOneArticle(boardId);
 
 		request.setAttribute("board", board);
+
+		
+		
+		
+		HttpSession session = request.getSession();
+		UsersVO userVO = (UsersVO) session.getAttribute("_USER_");
+		
+		
+		boolean isWriter =  userVO.getUserId().equals(board.getWriter()) ;
+
+		
+		request.setAttribute("isWriter", isWriter);
+		
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/view/board/detail.jsp");
 		dispatcher.forward(request, response);

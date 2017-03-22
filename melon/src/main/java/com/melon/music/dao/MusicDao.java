@@ -14,6 +14,8 @@ public interface MusicDao {
 	public List<MusicVO> selectAllMusics(MusicSearchVO musicSearchVO);
 
 	public MusicVO selectOneMusic(String musicId);
+	
+	public int updateOneMusic(MusicVO musicVO);
 
 	public int deleteOneMusic(String musicId);
 	

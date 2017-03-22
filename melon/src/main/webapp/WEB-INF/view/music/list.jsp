@@ -12,17 +12,57 @@
 	$()
 			.ready(
 					function() {
-						$("input[type=button]")
+						<c:if test="${isAdminUser || isOperatorUser}">
+						
+						$("#add")
+						.click(
+								function() {
+									window
+											.open(
+													"/melon/music/write?albumId=${param.albumId}",
+													"음악 등록",
+													"resizable=no, scrollbars=yes, toolbar=no,width=300px , height=500px, menubar=no")
+
+								});
+						
+						
+						$(".delete")
+						.click(
+								function() {
+								
+									
+									$.post("/melon/music/delete" , {
+										
+										"musicId" : $(this).data("musicidd")
+										
+									} , function(response){
+										
+										var jsonObj = JSON.parse(response);
+										
+										if(jsonObj.status=="success"){
+											
+											location.reload();
+											
+											
+										}
+										
+									});
+
+								});
+						
+						
+						$(".edit")
 								.click(
 										function() {
+											var musicide = $(this).data("musicide")
 											window
 													.open(
-															"/melon/music/write?albumId=${param.albumId}",
+															"/melon/music/modify?albumId=${param.albumId}&musicId="+ musicide,
 															"음악 등록",
-															"resizable=no, scrollbars=yes, toolbar=no,width=300px , height=500px, menubar=no")
+															"resizable=no, scrollbars=yes, toolbar=no,width=300px , height=500px, menubar=no");
 
 										});
-
+						</c:if>
 						$(".play")
 								.click(
 										function() {
@@ -47,7 +87,11 @@
 
 </head>
 <body>
-	<input type="button" value="앨범 등록" />
+	<c:choose>
+		<c:when test="${isAdminUser || isOperatorUser}">
+	<input id="add" type="button" value="앨범 등록" />
+		</c:when>
+	</c:choose>
 	<table>
 
 		<tr>
@@ -57,6 +101,8 @@
 			<th>앨범</th>
 			<th>좋아요</th>
 			<th>듣기</th>
+			<th></th>
+			<th></th>
 
 		</tr>
 
@@ -65,12 +111,26 @@
 			<tr>
 
 				<td>${index.index+1}</td>
-				<td>${music.title}</td>
+				<td><a href="/melon/music/detail?musicId=${music.musicId}">${music.title}</a></td>
 				<td>${music.albumVO.artistVO.member}</td>
 				<td>${music.albumVO.albumTitle}</td>
 				<td>${music.likeCount}</td>
 				<td class="play" data-albumid="${music.albumId}"
 					data-mp="${music.mp3File}">듣기</td>
+					
+					
+					<td><c:choose>
+		<c:when test="${isAdminUser || isOperatorUser}">
+	<input class="delete" data-musicidd="${music.musicId}"  type="button" value="삭제" />
+		</c:when>
+	</c:choose></td>
+					<td><c:choose>
+		<c:when test="${isAdminUser || isOperatorUser}">
+	<input class="edit" data-musicide="${music.musicId}" type="button" value="수정" />
+		</c:when>
+	</c:choose></td>
+	
+	
 
 			</tr>
 		</c:forEach>

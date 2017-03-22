@@ -18,4 +18,6 @@ public interface MusicBiz {
 	
 	public boolean addLikeCount(String musicId);
 	
+	public boolean updateOneMusic(MusicVO musicVO);
+	
 }

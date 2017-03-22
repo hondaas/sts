@@ -12,8 +12,13 @@ public interface MusicService {
 	public List<MusicVO> getAllMusics(MusicSearchVO musicSearchVO);
 
 	public MusicVO getOneMusic(String musicId, UserVO	userVO);
+	
+	public MusicVO getOneMusicforUpdate(String musicId);
 
 	public boolean removeOneMusic(String musicId);
 
 	public boolean addLikeCount(String musicId);
+	
+	public boolean updateOneMusic(MusicVO musicVO);
+	
 }

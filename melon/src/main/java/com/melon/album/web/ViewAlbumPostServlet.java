@@ -3,15 +3,19 @@ package com.melon.album.web;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.melon.album.biz.AlbumBiz;
 import com.melon.album.biz.AlbumBizImpl;
 import com.melon.album.vo.AlbumVO;
+import com.melon.common.constants.AuthConst;
 import com.melon.common.web.DownloadUtil;
+import com.melon.user.vo.UserVO;
 
 public class ViewAlbumPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,22 +35,22 @@ public class ViewAlbumPostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String albumId = request.getParameter("albumId");
 		
-		AlbumVO album = albumBiz.getOneAlbum(albumId);
-		
-		System.out.println(album.getAlbumId());
-		
-		
-		
-		String postPath = "D:\\uploadFiles\\post\\";
-		
-		postPath += album.getArtistId() + File.separator;
-		postPath += album.getAlbumTitle();
-		
-		DownloadUtil downloadUtil = DownloadUtil.getInstance(postPath);
-		downloadUtil.download(request, response, album.getPoster(), album.getPoster());
-		
+			String albumId = request.getParameter("albumId");
+
+			AlbumVO album = albumBiz.getOneAlbum(albumId);
+
+			System.out.println(album.getAlbumId());
+
+			String postPath = "D:\\uploadFiles\\post\\";
+
+			postPath += album.getArtistId() + File.separator;
+			postPath += album.getAlbumTitle();
+
+			DownloadUtil downloadUtil = DownloadUtil.getInstance(postPath);
+			downloadUtil.download(request, response, album.getPoster(), album.getPoster());
+		}
+
 	}
 
-}
+

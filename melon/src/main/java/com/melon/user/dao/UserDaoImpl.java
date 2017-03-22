@@ -30,8 +30,8 @@ public class UserDaoImpl implements UserDao {
 
 			StringBuffer query = new StringBuffer();
 
-			query.append(" INSERT INTO USR ( USR_ID, USR_NM , USR_PWD , USR_PNT   ) ");
-			query.append(" VALUES ( ? , ? , ? , 0 ) ");
+			query.append(" INSERT INTO USR ( USR_ID, USR_NM , USR_PWD , USR_PNT, ATHRZTN_ID   ) ");
+			query.append(" VALUES ( ? , ? , ? , 0 , 'AT-2017032009-000052' ) ");
 
 			stmt = conn.prepareStatement(query.toString());
 
@@ -82,9 +82,11 @@ public class UserDaoImpl implements UserDao {
 
 			StringBuffer query = new StringBuffer();
 
-			query.append(" SELECT  USR_ID, USR_NM , USR_PWD , USR_PNT  ");
-			query.append(" FROM USR ");
-			query.append(" WHERE USR_ID = ? ");
+			query.append(" SELECT  U.USR_ID, U.USR_NM , U.USR_PWD , U.USR_PNT , U.ATHRZTN_ID U_ATHRZTN_ID  ");
+			query.append(" 		, A.ATHRZTN_ID A_ATHRZTN_ID , A.ATHRZTN_NM , A.PRNT_ATHRZTN_ID ");
+			query.append(" FROM  USR U , ATHRZTN A ");
+			query.append(" WHERE U.ATHRZTN_ID = A.ATHRZTN_ID ");
+			query.append(" AND	 USR_ID = ? ");
 			query.append(" AND USR_PWD = ? ");
 
 			stmt = conn.prepareStatement(query.toString());
@@ -95,14 +97,18 @@ public class UserDaoImpl implements UserDao {
 			rs = stmt.executeQuery();
 			UserVO user = null;
 			if (rs.next()) {
-				userVO = new UserVO();
-				userVO.setUserId(rs.getString("USR_ID"));
-				userVO.setUserName(rs.getString("USR_NM"));
-				userVO.setUserPassword(rs.getString("USR_PWD"));
-				userVO.setUserPoint(rs.getInt("USR_PNT"));
+				user = new UserVO();
+				user.setUserId(rs.getString("USR_ID"));
+				user.setUserName(rs.getString("USR_NM"));
+				user.setUserPassword(rs.getString("USR_PWD"));
+				user.setUserPoint(rs.getInt("USR_PNT"));
+				user.setAuthorizationId(rs.getString("U_ATHRZTN_ID"));
+				user.getAuthorizationVO().setAuthorizationId(rs.getString("A_ATHRZTN_ID"));
+				user.getAuthorizationVO().setAuthorizationName(rs.getString("ATHRZTN_NM"));
+				user.getAuthorizationVO().setParentAuthorizationId(rs.getString("PRNT_ATHRZTN_ID"));
 			}
 
-			return userVO;
+			return user;
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage(), e);
@@ -216,10 +222,10 @@ public class UserDaoImpl implements UserDao {
 				return rs.getInt("CNT");
 			}
 			return 0;
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e.getMessage(), e);
-			
+
 		} finally {
 			try {
 				if (rs != null) {

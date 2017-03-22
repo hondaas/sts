@@ -66,6 +66,7 @@ public class DoWriteActionServlet extends HttpServlet {
 		boardVO.setWriter(user.getUserId());
 		boardVO.setSubject(subject);
 		boardVO.setContent(content);
+		boardVO.setImg(img.getFileName());
 		boardVO.setIp(ip);
 
 		if (img != null && img.getFileSize() > 0) {
@@ -73,9 +74,9 @@ public class DoWriteActionServlet extends HttpServlet {
 			postFileName = img.getFileName();
 			downloadUrl = img.getFileName();
 
-			String path = "C:\\Users\\Admin\\workspaceWeb\\melon\\src\\main\\webapp\\mp3\\";
+			String path = "C:\\Users\\Admin\\Documents\\sts\\board\\src\\main\\webapp\\img\\";
 
-			path += boardVO.getUser().getUserId();
+			path += boardVO.getWriter();
 			File dir = new File(path);
 
 			dir.mkdirs();
@@ -84,10 +85,10 @@ public class DoWriteActionServlet extends HttpServlet {
 			
 		}
 
-		if (boardBiz.updateOneArticle(boardVO)) {
-			response.sendRedirect("/melon/album/list");
+		if (boardBiz.writeArticle(boardVO)) {
+			response.sendRedirect("/board/list");
 		} else {
-			response.sendRedirect("/melon/album/write");
+			response.sendRedirect("/board/write");
 		}
 
 	}

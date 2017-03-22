@@ -150,7 +150,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
       
-      <Context docBase="melon" path="/melon" reloadable="true" source="org.eclipse.jst.jee.server:melon"/><Context docBase="board" path="/board" reloadable="true" source="org.eclipse.jst.jee.server:board"/></Host>
+      <Context docBase="melon" path="/melon" reloadable="true" source="org.eclipse.jst.jee.server:melon"/><Context docBase="board" path="/board" reloadable="true" source="org.eclipse.jst.jee.server:board"/><Context docBase="melon-admin" path="/melon-admin" reloadable="true" source="org.eclipse.jst.jee.server:melon-admin"/><Context docBase="drag" path="/drag" reloadable="true" source="org.eclipse.jst.jee.server:drag"/><Context docBase="shop" path="/shop" reloadable="true" source="org.eclipse.jst.jee.server:shop"/></Host>
     </Engine>
   </Service>
 </Server>

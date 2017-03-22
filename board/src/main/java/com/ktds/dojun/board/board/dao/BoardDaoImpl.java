@@ -272,7 +272,7 @@ public class BoardDaoImpl extends JDBCDaoSupport implements BoardDao {
 
 				StringBuffer query = new StringBuffer();
 				query.append(" UPDATE BOARD SET WRITER = ? ");
-				query.append(" , SUBJECT = ? , CONTENT = ? IMG = ? WHERE BOARD_ID = ? ");
+				query.append(" , SUBJECT = ? , CONTENT = ? , IMG = ? WHERE BOARD_ID = ? ");
 				return query.toString();
 
 			}

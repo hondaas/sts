@@ -56,4 +56,9 @@ public class MusicBizImpl implements MusicBiz {
 		return musicDao.addLikeCount(musicId)>0;
 	}
 
+	@Override
+	public boolean updateOneMusic(MusicVO musicVO) {
+		return musicDao.updateOneMusic(musicVO)>0;
+	}
+
 }

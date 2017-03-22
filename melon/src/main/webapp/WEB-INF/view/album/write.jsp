@@ -14,6 +14,7 @@
 	src="/melon/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 $().ready( function() {
+	
 			$("#writeForm").find("input[type=button]").click(function(){
 				$("#writeForm").attr({
 					"action" : "/melon/album/write?artistId=${param.artistId}",
